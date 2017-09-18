@@ -25,7 +25,7 @@
 
 
 <script language="JavaScript">
-    window.location.replace("http://<?=$_GET['link']?>");</script>
+    window.location.replace("<?=$_GET['link']?>");</script>
 <noscript> 
 Click <a href="<?=$_GET['link']?>">here</a>.
 </noscript>
