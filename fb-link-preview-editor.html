@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Link Preview Editing (Open Source Facebook Restriction Workaround)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"><link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script>
+
+        function readText (form) {
+            title = form.title.value;
+            description = form.description.value;
+            link = form.link.value;
+
+            splits = document.location.href.split('/');
+            console.log(splits);
+            pathString = "";
+
+
+            for (i = 0; i < (splits.length - 1); i++) {
+                pathString += splits[i] + "/";
+                console.log(i);
+            }
+
+            console.log(pathString);
+
+            geratedLink = pathString + "fb-redirect.php?title="+ title +"&description="+ description +"&link="+link;
+
+            geratedLink = "<b>"+encodeURI(geratedLink)+"</b>";
+
+            var output = document.getElementById("generated_link");
+            output.innerHTML = "Copy and paste the following link in your facebook post (this won't work if you are hosting this page on your localhost, because facebook needs to access it):<br><br>" + geratedLink;
+            output.classList.toggle('form--no');
+
+            //alert (The link you should use on facebook is: " + geratedLink);
+        }
+
+
+    </script>
+</head>
+
+<body>
+<div class="user">
+    <header class="user__header">
+        <h1 class="user__title">Facebook Link Preview Editing</h1>
+        <h1 class="user__subtitle">Custom Facebook Links</h1>
+    </header>
+
+    <form class="form">
+        <div class="form__group">
+            <input name="title" type="text" placeholder="Post Title" class="form__input" />
+        </div>
+
+        <div class="form__group">
+            <input name="description" type="text" placeholder="Post Description" class="form__input" />
+        </div>
+
+        <div class="form__group">
+            <input name="link" type="url" placeholder="Post Link" class="form__input" />
+        </div>
+
+        <button class="btn" type="button" onClick="readText(this.form)" >Generate Custom Link to Facebook</button>
+    </form>
+
+    <h1 class="user__subtitle" id="generated_link" style="text-align: center;  margin-top: 50px;" ></h1>
+
+</div>
+
+
+</body>
+</html>
